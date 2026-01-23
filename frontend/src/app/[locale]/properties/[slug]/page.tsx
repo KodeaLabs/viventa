@@ -11,8 +11,8 @@ import {
 import { Badge } from '@/components/atoms';
 import { ImageGallery } from '@/components/molecules';
 import { InquiryForm } from '@/components/organisms';
-import { api, formatPrice, formatArea } from '@/lib/api';
-import { propertyTypeLabels } from '@/lib/utils';
+import { api, formatPrice, formatArea } from '../../../../lib/api';
+import { propertyTypeLabels } from '../../../../lib/utils';
 
 interface PropertyDetailPageProps {
   params: { locale: string; slug: string };
@@ -86,9 +86,6 @@ export default async function PropertyDetailPage({
             {/* Header */}
             <div>
               <div className="flex flex-wrap gap-2 mb-4">
-                <Badge variant={property.listing_type === 'sale' ? 'primary' : 'accent'}>
-                  {property.listing_type === 'sale' ? t('forSale') : t('forRent')}
-                </Badge>
                 {property.is_featured && <Badge variant="warning">{t('featured')}</Badge>}
                 {property.is_beachfront && <Badge variant="success">{t('beachfront')}</Badge>}
                 {property.price_negotiable && (

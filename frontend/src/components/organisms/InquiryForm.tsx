@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/atoms';
 import { FormField } from '@/components/molecules';
-import { api } from '@/lib/api';
-import { cn } from '@/lib/utils';
+import { api } from '../../lib/api';
+import { cn } from '../../lib/utils';
 import type { InquiryFormData } from '@/types';
 
 interface InquiryFormProps {

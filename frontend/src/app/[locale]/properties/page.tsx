@@ -1,15 +1,16 @@
 import { getTranslations } from 'next-intl/server';
 import { SearchBar, FilterPanel } from '@/components/molecules';
 import { PropertyGrid } from '@/components/organisms';
-import { api } from '@/lib/api';
+import { api } from '../../../lib/api';
+import type { Property } from '@/types';
 
 interface PropertiesPageProps {
   params: { locale: string };
   searchParams: {
     search?: string;
-    listing_type?: string;
     property_type?: string;
     city?: string;
+    state?: string;
     min_price?: string;
     max_price?: string;
     min_bedrooms?: string;
@@ -30,9 +31,9 @@ export default async function PropertiesPage({
   // Build filters from search params
   const filters: Record<string, any> = {};
   if (searchParams.search) filters.search = searchParams.search;
-  if (searchParams.listing_type) filters.listing_type = searchParams.listing_type;
   if (searchParams.property_type) filters.property_type = searchParams.property_type;
   if (searchParams.city) filters.city = searchParams.city;
+  if (searchParams.state) filters.state = searchParams.state;
   if (searchParams.min_price) filters.min_price = searchParams.min_price;
   if (searchParams.max_price) filters.max_price = searchParams.max_price;
   if (searchParams.min_bedrooms) filters.min_bedrooms = searchParams.min_bedrooms;
@@ -41,7 +42,7 @@ export default async function PropertiesPage({
   if (searchParams.page) filters.page = searchParams.page;
 
   // Fetch properties
-  let properties = [];
+  let properties: Property[] = [];
   let meta = null;
   try {
     const response = await api.getProperties(filters);
@@ -54,17 +55,14 @@ export default async function PropertiesPage({
   const searchTranslations = {
     searchPlaceholder: searchT('placeholder'),
     allTypes: searchT('allTypes'),
-    forSale: searchT('forSale'),
-    forRent: searchT('forRent'),
     search: searchT('search'),
     location: searchT('location'),
+    propertyType: locale === 'es' ? 'Tipo de Propiedad' : 'Property Type',
   };
 
   const propertyTranslations = {
     bedrooms: t('bedrooms'),
     bathrooms: t('bathrooms'),
-    forSale: t('forSale'),
-    forRent: t('forRent'),
     beachfront: t('beachfront'),
     featured: t('featured'),
     investment: t('investment'),
@@ -99,7 +97,7 @@ export default async function PropertiesPage({
           </h1>
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-end">
             <div className="flex-1 w-full">
-              <SearchBar variant="hero" translations={searchTranslations} />
+              <SearchBar variant="hero" locale={locale} translations={searchTranslations} />
             </div>
             <FilterPanel locale={locale} translations={filterTranslations} />
           </div>

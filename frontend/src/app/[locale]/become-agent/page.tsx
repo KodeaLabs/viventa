@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Spinner } from '@/components/atoms';
-import { api } from '@/lib/api';
+import { api } from '../../../lib/api';
 
 interface Referrer {
   id: number;

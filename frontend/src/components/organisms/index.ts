@@ -1,5 +1,9 @@
 export { Header } from './Header';
 export { Footer } from './Footer';
 export { PropertyGrid } from './PropertyGrid';
+export { ProjectGrid } from './ProjectGrid';
+export { AssetGrid } from './AssetGrid';
+export { MilestoneTimeline } from './MilestoneTimeline';
+export { PaymentTable } from './PaymentTable';
 export { InquiryForm } from './InquiryForm';
 export { PropertyForm } from './PropertyForm';

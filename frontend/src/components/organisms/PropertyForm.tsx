@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, Input, Textarea, Select, Spinner } from '@/components/atoms';
 import { ImageUpload, UploadedImage } from '@/components/molecules/ImageUpload';
-import type { Property, PropertyFormData, PropertyType, ListingType } from '@/types';
+import type { Property, PropertyFormData, PropertyType } from '@/types';
 
 interface PropertyFormProps {
   property?: Property;
@@ -26,10 +26,6 @@ const propertyTypeOptions = (isSpanish: boolean) => [
   { value: 'commercial', label: isSpanish ? 'Comercial' : 'Commercial' },
 ];
 
-const listingTypeOptions = (isSpanish: boolean) => [
-  { value: 'sale', label: isSpanish ? 'Venta' : 'For Sale' },
-  { value: 'rent', label: isSpanish ? 'Alquiler' : 'For Rent' },
-];
 
 const venezuelanStates = [
   { value: 'Amazonas', label: 'Amazonas' },
@@ -82,7 +78,6 @@ export function PropertyForm({ property, locale, mode }: PropertyFormProps) {
           price: property.price,
           price_negotiable: property.price_negotiable,
           property_type: property.property_type,
-          listing_type: property.listing_type,
           bedrooms: property.bedrooms,
           bathrooms: property.bathrooms,
           area_sqm: property.area_sqm || undefined,
@@ -102,7 +97,6 @@ export function PropertyForm({ property, locale, mode }: PropertyFormProps) {
         }
       : {
           property_type: 'house' as PropertyType,
-          listing_type: 'sale' as ListingType,
           bedrooms: 0,
           bathrooms: 0,
           parking_spaces: 0,
@@ -149,7 +143,7 @@ export function PropertyForm({ property, locale, mode }: PropertyFormProps) {
       formData.append('price', String(data.price));
       formData.append('price_negotiable', String(data.price_negotiable || false));
       formData.append('property_type', data.property_type);
-      formData.append('listing_type', data.listing_type);
+      formData.append('listing_type', 'sale'); // MVP: Only sale, no rent
       formData.append('bedrooms', String(data.bedrooms));
       formData.append('bathrooms', String(data.bathrooms));
       if (data.area_sqm) formData.append('area_sqm', String(data.area_sqm));
@@ -229,7 +223,6 @@ export function PropertyForm({ property, locale, mode }: PropertyFormProps) {
     price: isSpanish ? 'Precio (USD)' : 'Price (USD)',
     priceNegotiable: isSpanish ? 'Precio negociable' : 'Price negotiable',
     propertyType: isSpanish ? 'Tipo de Propiedad' : 'Property Type',
-    listingType: isSpanish ? 'Tipo de Listado' : 'Listing Type',
     bedrooms: isSpanish ? 'Habitaciones' : 'Bedrooms',
     bathrooms: isSpanish ? 'Baños' : 'Bathrooms',
     areaSqm: isSpanish ? 'Área (m²)' : 'Area (sqm)',
@@ -302,7 +295,7 @@ export function PropertyForm({ property, locale, mode }: PropertyFormProps) {
             {...register('description_es')}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               label={t.price}
               type="number"
@@ -321,20 +314,6 @@ export function PropertyForm({ property, locale, mode }: PropertyFormProps) {
                   label={t.propertyType}
                   options={propertyTypeOptions(isSpanish)}
                   error={errors.property_type?.message}
-                  {...field}
-                />
-              )}
-            />
-
-            <Controller
-              name="listing_type"
-              control={control}
-              rules={{ required: t.required }}
-              render={({ field }) => (
-                <Select
-                  label={t.listingType}
-                  options={listingTypeOptions(isSpanish)}
-                  error={errors.listing_type?.message}
                   {...field}
                 />
               )}

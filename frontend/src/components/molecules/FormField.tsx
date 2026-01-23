@@ -1,7 +1,7 @@
 'use client';
 
 import { Input, Select, type SelectOption } from '@/components/atoms';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface FormFieldProps {
   type?: 'text' | 'email' | 'tel' | 'number' | 'textarea' | 'select';

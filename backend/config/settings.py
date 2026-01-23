@@ -33,6 +33,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "django_extensions",
     "imagekit",
+    "django_fsm",
 ]
 
 LOCAL_APPS = [
@@ -40,6 +41,7 @@ LOCAL_APPS = [
     "apps.accounts",
     "apps.properties",
     "apps.inquiries",
+    "apps.projects",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

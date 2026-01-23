@@ -1,4 +1,5 @@
-import { handleAuth, handleLogin, handleCallback } from '@auth0/nextjs-auth0';
+import { handleAuth, handleLogin, handleCallback, Session } from '@auth0/nextjs-auth0';
+import { NextRequest } from 'next/server';
 
 export const GET = handleAuth({
   login: handleLogin({
@@ -8,7 +9,7 @@ export const GET = handleAuth({
     },
   }),
   callback: handleCallback({
-    afterCallback: async (req, session) => {
+    afterCallback: async (_req: NextRequest, session: Session) => {
       // You can modify the session here if needed
       return session;
     },

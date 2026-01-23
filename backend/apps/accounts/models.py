@@ -45,6 +45,7 @@ class User(AbstractUser, TimeStampedModel):
     class Role(models.TextChoices):
         ADMIN = "admin", "Administrator"
         AGENT = "agent", "Real Estate Agent"
+        PROJECT_ADMIN = "project_admin", "Project Administrator"
         BUYER = "buyer", "Buyer"
 
     class AgentType(models.TextChoices):
@@ -188,6 +189,10 @@ class User(AbstractUser, TimeStampedModel):
     @property
     def is_admin(self) -> bool:
         return self.role == self.Role.ADMIN
+
+    @property
+    def is_project_admin(self) -> bool:
+        return self.role == self.Role.PROJECT_ADMIN
 
     @property
     def location_display(self) -> str:

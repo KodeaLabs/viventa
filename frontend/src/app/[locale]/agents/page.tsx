@@ -1,4 +1,4 @@
-import { api } from '@/lib/api';
+import { api } from '../../../lib/api';
 import Link from 'next/link';
 import type { AgentListItem, AgentType } from '@/types';
 

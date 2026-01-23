@@ -41,6 +41,7 @@ export default async function LocaleLayout({
   const headerTranslations = {
     home: t('home'),
     properties: t('properties'),
+    projects: t('projects'),
     agents: t('agents'),
     about: t('about'),
     contact: t('contact'),
@@ -50,8 +51,6 @@ export default async function LocaleLayout({
   const footerTranslations = {
     tagline: footerT('tagline'),
     properties: footerT('properties'),
-    forSale: footerT('forSale'),
-    forRent: footerT('forRent'),
     featured: footerT('featured'),
     company: footerT('company'),
     about: footerT('about'),

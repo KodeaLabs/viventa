@@ -4,7 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/atoms';
 import { SearchBar } from '@/components/molecules';
 import { PropertyGrid } from '@/components/organisms';
-import { api } from '@/lib/api';
+import { api } from '../../lib/api';
+import type { Property } from '@/types';
 import {
   BuildingOffice2Icon,
   UserGroupIcon,
@@ -24,7 +25,7 @@ export default async function HomePage({
   const propertyT = await getTranslations({ locale, namespace: 'property' });
 
   // Fetch featured properties
-  let featuredProperties = [];
+  let featuredProperties: Property[] = [];
   try {
     const response = await api.getFeaturedProperties();
     featuredProperties = response.data || [];
@@ -35,17 +36,14 @@ export default async function HomePage({
   const searchTranslations = {
     searchPlaceholder: searchT('placeholder'),
     allTypes: searchT('allTypes'),
-    forSale: searchT('forSale'),
-    forRent: searchT('forRent'),
     search: searchT('search'),
     location: searchT('location'),
+    propertyType: locale === 'es' ? 'Tipo de Propiedad' : 'Property Type',
   };
 
   const propertyTranslations = {
     bedrooms: propertyT('bedrooms'),
     bathrooms: propertyT('bathrooms'),
-    forSale: propertyT('forSale'),
-    forRent: propertyT('forRent'),
     beachfront: propertyT('beachfront'),
     featured: propertyT('featured'),
     investment: propertyT('investment'),
@@ -91,7 +89,7 @@ export default async function HomePage({
 
             {/* Search Bar */}
             <div className="mb-10">
-              <SearchBar translations={searchTranslations} />
+              <SearchBar locale={locale} translations={searchTranslations} />
             </div>
 
             {/* Stats */}

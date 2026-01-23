@@ -4,7 +4,7 @@ import { useState, Suspense } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ChevronDownIcon, XMarkIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { Button, Select, Spinner } from '@/components/atoms';
-import { venezuelanStates, propertyTypeLabels } from '@/lib/utils';
+import { venezuelanStates, propertyTypeLabels } from '../../lib/utils';
 
 interface FilterPanelProps {
   locale: string;

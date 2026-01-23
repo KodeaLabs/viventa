@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ShareIcon, CheckIcon, LinkIcon } from '@heroicons/react/24/outline';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface ShareButtonProps {
   url?: string;

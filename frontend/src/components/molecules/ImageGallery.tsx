@@ -7,15 +7,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from '@heroicons/react/24/outline';
-import { cn } from '@/lib/utils';
-
-interface PropertyImage {
-  id: string;
-  image: string;
-  thumbnail_url?: string;
-  large_url?: string;
-  order?: number;
-}
+import { cn } from '../../lib/utils';
+import type { PropertyImage } from '@/types';
 
 interface ImageGalleryProps {
   images: PropertyImage[];

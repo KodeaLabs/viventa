@@ -4,38 +4,43 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MagnifyingGlassIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { Button, Select } from '@/components/atoms';
-import { cn } from '@/lib/utils';
+import { propertyTypeLabels } from '../../lib/utils';
 
 interface SearchBarProps {
   variant?: 'hero' | 'compact';
   className?: string;
+  locale?: string;
   translations: {
     searchPlaceholder: string;
     allTypes: string;
-    forSale: string;
-    forRent: string;
     search: string;
     location: string;
+    propertyType: string;
   };
 }
 
-export function SearchBar({ variant = 'hero', translations }: SearchBarProps) {
+export function SearchBar({ variant = 'hero', locale: propLocale, translations }: SearchBarProps) {
   const router = useRouter();
   const [search, setSearch] = useState('');
-  const [listingType, setListingType] = useState('');
+  const [propertyType, setPropertyType] = useState('');
   const [location, setLocation] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (search) params.set('search', search);
-    if (listingType) params.set('listing_type', listingType);
+    if (propertyType) params.set('property_type', propertyType);
     if (location) params.set('city', location);
-    // Get current locale from pathname
+    // Get current locale from pathname or prop
     const pathLocale = window.location.pathname.split('/')[1];
-    const locale = pathLocale === 'es' ? 'es' : 'en';
+    const locale = propLocale || (pathLocale === 'es' ? 'es' : 'en');
     router.push(`/${locale}/properties?${params.toString()}`);
   };
+
+  const propertyTypes = Object.entries(propertyTypeLabels).map(([value, labels]) => ({
+    value,
+    label: labels[propLocale as 'en' | 'es'] || labels.en,
+  }));
 
   if (variant === 'compact') {
     return (
@@ -91,16 +96,15 @@ export function SearchBar({ variant = 'hero', translations }: SearchBarProps) {
           </div>
         </div>
 
-        {/* Listing Type */}
+        {/* Property Type */}
         <div>
-          <label className="label">Type</label>
+          <label className="label">{translations.propertyType}</label>
           <Select
-            value={listingType}
-            onChange={(e) => setListingType(e.target.value)}
+            value={propertyType}
+            onChange={(e) => setPropertyType(e.target.value)}
             options={[
               { value: '', label: translations.allTypes },
-              { value: 'sale', label: translations.forSale },
-              { value: 'rent', label: translations.forRent },
+              ...propertyTypes,
             ]}
           />
         </div>

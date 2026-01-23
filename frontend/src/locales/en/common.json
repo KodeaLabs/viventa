@@ -6,13 +6,15 @@
   "nav": {
     "home": "Home",
     "properties": "Properties",
+    "projects": "Projects",
     "agents": "Agents",
     "about": "About",
     "contact": "Contact",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "dashboard": "Dashboard",
-    "myListings": "My Listings"
+    "myListings": "My Listings",
+    "myContracts": "My Contracts"
   },
   "hero": {
     "title": "Your Gateway to Venezuelan Real Estate",
@@ -23,15 +25,11 @@
     "placeholder": "Search properties...",
     "location": "Location",
     "allTypes": "All Types",
-    "forSale": "For Sale",
-    "forRent": "For Rent",
     "search": "Search"
   },
   "property": {
     "bedrooms": "beds",
     "bathrooms": "baths",
-    "forSale": "For Sale",
-    "forRent": "For Rent",
     "beachfront": "Beachfront",
     "featured": "Featured",
     "investment": "Investment",
@@ -74,8 +72,6 @@
   "footer": {
     "tagline": "Your trusted partner for real estate investments in Venezuela. We connect international buyers with verified local agents.",
     "properties": "Properties",
-    "forSale": "For Sale",
-    "forRent": "For Rent",
     "featured": "Featured",
     "company": "Company",
     "about": "About Us",
@@ -126,5 +122,100 @@
     "features": "Features",
     "beachfront": "Beachfront",
     "featured": "Featured"
+  },
+  "project": {
+    "title": "Development Projects",
+    "subtitle": "Explore new developments and pre-sale opportunities in Venezuela",
+    "noProjects": "No projects available at this time.",
+    "viewProject": "View Project",
+    "assets": "Available Units",
+    "milestones": "Construction Progress",
+    "updates": "Project Updates",
+    "amenities": "Amenities",
+    "brochure": "Download Brochure",
+    "masterPlan": "View Master Plan",
+    "priceFrom": "From",
+    "units": "units",
+    "available": "available",
+    "sold": "sold",
+    "progress": "Progress",
+    "delivery": "Est. Delivery",
+    "developer": "Developer",
+    "featured": "Featured Project",
+    "status": {
+      "draft": "Draft",
+      "presale": "Pre-Sale",
+      "under_construction": "Under Construction",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    }
+  },
+  "assets": {
+    "all": "All",
+    "apartment": "Apartments",
+    "parking": "Parking",
+    "storage": "Storage",
+    "commercial": "Commercial",
+    "land_lot": "Land Lots",
+    "floor": "Floor",
+    "area": "Area",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "price": "Price",
+    "noAssets": "No units available.",
+    "status": {
+      "available": "Available",
+      "reserved": "Reserved",
+      "sold": "Sold",
+      "delivered": "Delivered"
+    }
+  },
+  "contracts": {
+    "title": "My Contracts",
+    "noContracts": "You don't have any contracts yet.",
+    "browseProjects": "Browse Projects",
+    "totalPrice": "Total Price",
+    "initialPayment": "Initial Payment",
+    "paymentPlan": "Payment Plan",
+    "months": "months",
+    "contractDate": "Contract Date",
+    "unit": "Unit",
+    "viewProject": "View Project",
+    "unitDetails": "Unit Details",
+    "type": "Type",
+    "floor": "Floor",
+    "area": "Area",
+    "paymentSchedule": "Payment Schedule",
+    "status": {
+      "reserved": "Reserved",
+      "signed": "Signed",
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "payments": {
+    "dueDate": "Due Date",
+    "concept": "Concept",
+    "amount": "Amount",
+    "status": "Status",
+    "paidDate": "Paid Date",
+    "reference": "Reference",
+    "totalDue": "Total Due",
+    "totalPaid": "Total Paid",
+    "remaining": "Remaining",
+    "concepts": {
+      "initial": "Initial",
+      "monthly": "Monthly",
+      "milestone": "Milestone",
+      "final": "Final",
+      "other": "Other"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "waived": "Waived"
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { api, formatPrice } from '@/lib/api';
+import { api, formatPrice } from '../../../../lib/api';
 import type { AgentProfile, AgentListItem, Property, AgentType } from '@/types';
 
 interface AgentProfilePageProps {

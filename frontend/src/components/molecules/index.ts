@@ -1,5 +1,8 @@
 export { SearchBar } from './SearchBar';
 export { PropertyCard } from './PropertyCard';
+export { ProjectCard } from './ProjectCard';
+export { AssetCard } from './AssetCard';
+export { MilestoneItem } from './MilestoneItem';
 export { FormField } from './FormField';
 export { FilterPanel } from './FilterPanel';
 export { ShareButton } from './ShareButton';

@@ -10,8 +10,6 @@ interface PropertyGridProps {
   translations: {
     bedrooms: string;
     bathrooms: string;
-    forSale: string;
-    forRent: string;
     beachfront: string;
     featured: string;
     investment: string;

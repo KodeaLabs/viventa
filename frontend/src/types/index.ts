@@ -50,9 +50,9 @@ export type PropertyType =
   | 'land'
   | 'commercial';
 
-export type ListingType = 'sale' | 'rent';
+export type ListingType = 'sale';
 
-export type PropertyStatus = 'draft' | 'active' | 'pending' | 'sold' | 'rented' | 'inactive';
+export type PropertyStatus = 'draft' | 'active' | 'pending' | 'sold' | 'inactive';
 
 export interface PropertyImage {
   id: string;
@@ -140,7 +140,7 @@ export interface User {
   created_at: string;
 }
 
-export type UserRole = 'admin' | 'agent' | 'buyer';
+export type UserRole = 'admin' | 'agent' | 'project_admin' | 'buyer';
 
 // Inquiry Types
 export interface Inquiry {
@@ -208,7 +208,6 @@ export interface PaginatedResponse<T> {
 export interface PropertyFilters {
   search?: string;
   property_type?: PropertyType;
-  listing_type?: ListingType;
   city?: string;
   state?: string;
   min_price?: number;
@@ -248,7 +247,6 @@ export interface PropertyFormData {
   price: number;
   price_negotiable?: boolean;
   property_type: PropertyType;
-  listing_type: ListingType;
   status?: PropertyStatus;
   bedrooms: number;
   bathrooms: number;
@@ -266,4 +264,157 @@ export interface PropertyFormData {
   is_new_construction?: boolean;
   is_beachfront?: boolean;
   is_investment_opportunity?: boolean;
+}
+
+// ==================== Projects Module ====================
+
+export type ProjectStatus = 'draft' | 'presale' | 'under_construction' | 'delivered' | 'cancelled';
+
+export interface ProjectListItem {
+  id: string;
+  slug: string;
+  title: string;
+  title_es?: string;
+  developer_name: string;
+  city: string;
+  state: string;
+  location_display: string;
+  status: ProjectStatus;
+  total_units: number;
+  available_units: number;
+  sold_units: number;
+  price_range_min: number | null;
+  price_range_max: number | null;
+  delivery_date: string | null;
+  cover_image_url: string | null;
+  progress_percentage: number;
+  is_featured: boolean;
+  created_at: string;
+}
+
+export interface ProjectDetail extends ProjectListItem {
+  description: string;
+  description_es?: string;
+  developer_logo: string | null;
+  address: string;
+  latitude: number | null;
+  longitude: number | null;
+  construction_start_date: string | null;
+  amenities: string[];
+  master_plan_url: string;
+  brochure_url: string;
+  video_url: string;
+  cover_image: string | null;
+  gallery_images: ProjectGalleryImage[];
+  milestones: ProjectMilestone[];
+  available_assets_count: number;
+  updated_at: string;
+}
+
+export interface ProjectGalleryImage {
+  id: string;
+  image: string | null;
+  image_url: string;
+  caption: string;
+  order: number;
+}
+
+export type AssetType = 'apartment' | 'parking' | 'storage' | 'commercial' | 'land_lot';
+export type AssetStatus = 'available' | 'reserved' | 'sold' | 'delivered';
+
+export interface SellableAsset {
+  id: string;
+  identifier: string;
+  asset_type: AssetType;
+  floor: number | null;
+  area_sqm: number | null;
+  bedrooms: number;
+  bathrooms: number;
+  price_usd: number;
+  status: AssetStatus;
+  floor_plan_url: string;
+  features?: string[];
+  project_title?: string;
+  project_slug?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export type MilestoneStatus = 'pending' | 'in_progress' | 'completed' | 'delayed';
+
+export interface ProjectMilestone {
+  id: string;
+  title: string;
+  title_es?: string;
+  description: string;
+  description_es?: string;
+  target_date: string | null;
+  completed_date: string | null;
+  percentage: number;
+  status: MilestoneStatus;
+  order: number;
+}
+
+export type ContractStatus = 'reserved' | 'signed' | 'active' | 'completed' | 'cancelled';
+
+export interface BuyerContractListItem {
+  id: string;
+  asset_identifier: string;
+  project_title: string;
+  project_slug: string;
+  buyer_email: string;
+  buyer_name: string;
+  contract_date: string | null;
+  total_price: number;
+  initial_payment: number;
+  payment_plan_months: number;
+  status: ContractStatus;
+  created_at: string;
+}
+
+export interface BuyerContractDetail extends BuyerContractListItem {
+  asset: SellableAsset;
+  payments: PaymentScheduleItem[];
+  notes: string;
+  updated_at: string;
+}
+
+export type PaymentConcept = 'initial' | 'monthly' | 'milestone' | 'final' | 'other';
+export type PaymentItemStatus = 'pending' | 'paid' | 'overdue' | 'waived';
+
+export interface PaymentScheduleItem {
+  id: string;
+  due_date: string;
+  amount_usd: number;
+  concept: PaymentConcept;
+  status: PaymentItemStatus;
+  paid_date: string | null;
+  payment_reference: string;
+  notes: string;
+}
+
+export interface ProjectUpdateItem {
+  id: string;
+  title: string;
+  title_es?: string;
+  content?: string;
+  content_es?: string;
+  author_name: string;
+  image: string | null;
+  is_public: boolean;
+  published_at: string | null;
+  created_at: string;
+}
+
+export interface ProjectFilters {
+  search?: string;
+  status?: ProjectStatus;
+  city?: string;
+  state?: string;
+  min_price?: number;
+  max_price?: number;
+  is_featured?: boolean;
+  ordering?: string;
+  page?: number;
+  page_size?: number;
 }

@@ -10,8 +10,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Badge } from '@/components/atoms';
-import { formatPrice } from '@/lib/api';
-import { cn } from '@/lib/utils';
+import { formatPrice } from '../../lib/api';
+import { cn } from '../../lib/utils';
 import type { Property } from '@/types';
 
 interface PropertyCardProps {
@@ -20,8 +20,6 @@ interface PropertyCardProps {
   translations: {
     bedrooms: string;
     bathrooms: string;
-    forSale: string;
-    forRent: string;
     beachfront: string;
     featured: string;
     investment: string;
@@ -57,9 +55,6 @@ export function PropertyCard({
 
           {/* Top Badges */}
           <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-            <Badge variant={property.listing_type === 'sale' ? 'primary' : 'accent'}>
-              {property.listing_type === 'sale' ? translations.forSale : translations.forRent}
-            </Badge>
             {property.is_featured && (
               <Badge variant="warning">{translations.featured}</Badge>
             )}

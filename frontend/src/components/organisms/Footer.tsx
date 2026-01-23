@@ -7,8 +7,6 @@ interface FooterProps {
   translations: {
     tagline: string;
     properties: string;
-    forSale: string;
-    forRent: string;
     featured: string;
     company: string;
     about: string;
@@ -49,18 +47,10 @@ export function Footer({ locale, translations }: FooterProps) {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href={`/${locale}/properties?listing_type=sale`}
+                  href={`/${locale}/properties`}
                   className="text-sm hover:text-white transition-colors"
                 >
-                  {translations.forSale}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/${locale}/properties?listing_type=rent`}
-                  className="text-sm hover:text-white transition-colors"
-                >
-                  {translations.forRent}
+                  {locale === 'es' ? 'Ver Todas' : 'View All'}
                 </Link>
               </li>
               <li>
@@ -69,6 +59,14 @@ export function Footer({ locale, translations }: FooterProps) {
                   className="text-sm hover:text-white transition-colors"
                 >
                   {translations.featured}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`/${locale}/properties?is_beachfront=true`}
+                  className="text-sm hover:text-white transition-colors"
+                >
+                  {locale === 'es' ? 'Frente al Mar' : 'Beachfront'}
                 </Link>
               </li>
             </ul>

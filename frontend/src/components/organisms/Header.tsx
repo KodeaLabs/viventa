@@ -8,13 +8,14 @@ import {
   XMarkIcon,
   GlobeAltIcon,
 } from '@heroicons/react/24/outline';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface HeaderProps {
   locale: string;
   translations: {
     home: string;
     properties: string;
+    projects: string;
     agents: string;
     about: string;
     contact: string;
@@ -28,6 +29,7 @@ export function Header({ locale, translations }: HeaderProps) {
   const navigation = [
     { name: translations.home, href: `/${locale}` },
     { name: translations.properties, href: `/${locale}/properties` },
+    { name: translations.projects, href: `/${locale}/projects` },
     { name: translations.agents, href: `/${locale}/agents` },
     { name: translations.about, href: `/${locale}/about` },
     { name: translations.contact, href: `/${locale}/contact` },

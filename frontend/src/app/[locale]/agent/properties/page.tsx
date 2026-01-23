@@ -11,7 +11,7 @@ import {
   ChatBubbleLeftIcon,
 } from '@heroicons/react/24/outline';
 import { Button, Badge, Spinner } from '@/components/atoms';
-import { formatPrice } from '@/lib/api';
+import { formatPrice } from '../../../../lib/api';
 
 interface Property {
   id: string;
@@ -19,7 +19,6 @@ interface Property {
   slug: string;
   price: number;
   status: 'active' | 'draft' | 'pending' | 'sold';
-  listing_type: 'sale' | 'rent';
   main_image: string | null;
   location_display: string;
   views_count: number;
@@ -257,15 +256,6 @@ export default function AgentPropertiesPage({
                       <td className="px-6 py-4">
                         <p className="font-semibold text-secondary-900">
                           {formatPrice(property.price)}
-                        </p>
-                        <p className="text-sm text-secondary-500">
-                          {property.listing_type === 'sale'
-                            ? isSpanish
-                              ? 'Venta'
-                              : 'Sale'
-                            : isSpanish
-                            ? 'Alquiler'
-                            : 'Rent'}
                         </p>
                       </td>
                       <td className="px-6 py-4">

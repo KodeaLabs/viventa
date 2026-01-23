@@ -6,13 +6,15 @@
   "nav": {
     "home": "Inicio",
     "properties": "Propiedades",
+    "projects": "Proyectos",
     "agents": "Agentes",
     "about": "Nosotros",
     "contact": "Contacto",
     "signIn": "Iniciar Sesión",
     "signOut": "Cerrar Sesión",
     "dashboard": "Panel",
-    "myListings": "Mis Propiedades"
+    "myListings": "Mis Propiedades",
+    "myContracts": "Mis Contratos"
   },
   "hero": {
     "title": "Tu Puerta de Entrada a los Bienes Raíces en Venezuela",
@@ -23,15 +25,11 @@
     "placeholder": "Buscar propiedades...",
     "location": "Ubicación",
     "allTypes": "Todos los Tipos",
-    "forSale": "En Venta",
-    "forRent": "En Alquiler",
     "search": "Buscar"
   },
   "property": {
     "bedrooms": "hab.",
     "bathrooms": "baños",
-    "forSale": "En Venta",
-    "forRent": "En Alquiler",
     "beachfront": "Frente al Mar",
     "featured": "Destacado",
     "investment": "Inversión",
@@ -74,8 +72,6 @@
   "footer": {
     "tagline": "Tu socio de confianza para inversiones inmobiliarias en Venezuela. Conectamos compradores internacionales con agentes locales verificados.",
     "properties": "Propiedades",
-    "forSale": "En Venta",
-    "forRent": "En Alquiler",
     "featured": "Destacadas",
     "company": "Empresa",
     "about": "Sobre Nosotros",
@@ -126,5 +122,100 @@
     "features": "Características",
     "beachfront": "Frente al Mar",
     "featured": "Destacado"
+  },
+  "project": {
+    "title": "Proyectos en Desarrollo",
+    "subtitle": "Explora nuevos desarrollos y oportunidades de pre-venta en Venezuela",
+    "noProjects": "No hay proyectos disponibles en este momento.",
+    "viewProject": "Ver Proyecto",
+    "assets": "Unidades Disponibles",
+    "milestones": "Progreso de Construcción",
+    "updates": "Actualizaciones del Proyecto",
+    "amenities": "Amenidades",
+    "brochure": "Descargar Brochure",
+    "masterPlan": "Ver Plan Maestro",
+    "priceFrom": "Desde",
+    "units": "unidades",
+    "available": "disponibles",
+    "sold": "vendidas",
+    "progress": "Progreso",
+    "delivery": "Entrega Est.",
+    "developer": "Desarrollador",
+    "featured": "Proyecto Destacado",
+    "status": {
+      "draft": "Borrador",
+      "presale": "Pre-Venta",
+      "under_construction": "En Construcción",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "assets": {
+    "all": "Todos",
+    "apartment": "Apartamentos",
+    "parking": "Estacionamiento",
+    "storage": "Depósitos",
+    "commercial": "Comercial",
+    "land_lot": "Lotes",
+    "floor": "Piso",
+    "area": "Área",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "price": "Precio",
+    "noAssets": "No hay unidades disponibles.",
+    "status": {
+      "available": "Disponible",
+      "reserved": "Reservado",
+      "sold": "Vendido",
+      "delivered": "Entregado"
+    }
+  },
+  "contracts": {
+    "title": "Mis Contratos",
+    "noContracts": "No tienes contratos aún.",
+    "browseProjects": "Ver Proyectos",
+    "totalPrice": "Precio Total",
+    "initialPayment": "Pago Inicial",
+    "paymentPlan": "Plan de Pago",
+    "months": "meses",
+    "contractDate": "Fecha de Contrato",
+    "unit": "Unidad",
+    "viewProject": "Ver Proyecto",
+    "unitDetails": "Detalles de la Unidad",
+    "type": "Tipo",
+    "floor": "Piso",
+    "area": "Área",
+    "paymentSchedule": "Cronograma de Pagos",
+    "status": {
+      "reserved": "Reservado",
+      "signed": "Firmado",
+      "active": "Activo",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "payments": {
+    "dueDate": "Fecha de Vencimiento",
+    "concept": "Concepto",
+    "amount": "Monto",
+    "status": "Estado",
+    "paidDate": "Fecha de Pago",
+    "reference": "Referencia",
+    "totalDue": "Total Adeudado",
+    "totalPaid": "Total Pagado",
+    "remaining": "Restante",
+    "concepts": {
+      "initial": "Inicial",
+      "monthly": "Mensual",
+      "milestone": "Hito",
+      "final": "Final",
+      "other": "Otro"
+    },
+    "statuses": {
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "overdue": "Vencido",
+      "waived": "Exonerado"
+    }
   }
 }

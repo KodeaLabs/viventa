@@ -6,7 +6,7 @@ import {
   LockClosedIcon,
   GlobeAltIcon,
 } from '@heroicons/react/24/solid';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface TrustBadgesProps {
   locale: 'en' | 'es';
