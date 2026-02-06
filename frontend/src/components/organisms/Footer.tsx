@@ -33,7 +33,7 @@ export function Footer({ locale, translations }: FooterProps) {
                 <span className="text-white font-display font-bold text-xl">V</span>
               </div>
               <span className="font-display font-semibold text-xl text-white">
-                Viventa
+                Viventi
               </span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed">

@@ -580,24 +580,24 @@ class Command(BaseCommand):
 
         # Create a real estate company
         company, created = User.objects.get_or_create(
-            email='info@viventave.com',
+            email='info@viventi.com',
             defaults={
                 'first_name': '',
                 'last_name': '',
                 'role': 'agent',
                 'agent_type': 'company',
                 'phone': '+58 212 555 0100',
-                'company_name': 'Viventa Premium Properties',
+                'company_name': 'Viventi Premium Properties',
                 'bio': 'Leading real estate company specializing in luxury vacation properties across Venezuela. With over 15 years of experience, we connect international investors with prime Venezuelan real estate.',
                 'bio_es': 'Empresa inmobiliaria líder especializada en propiedades vacacionales de lujo en toda Venezuela. Con más de 15 años de experiencia, conectamos inversores internacionales con bienes raíces venezolanos de primera categoría.',
                 'is_verified_agent': True,
                 'city': 'Caracas',
                 'state': 'Distrito Capital',
-                'website': 'https://viventa.ve',
+                'website': 'https://viventi.ve',
                 'founded_year': 2009,
                 'team_size': 15,
                 'whatsapp': '+58 412 555 0100',
-                'instagram': 'viventa_ve',
+                'instagram': 'viventi_ve',
                 'total_listings': 45,
                 'total_sales': 120,
                 'avatar_url': 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&auto=format',  # Company building
@@ -639,7 +639,7 @@ class Command(BaseCommand):
         # Create individual agents
         agents_data = [
             {
-                'email': 'maria@viventave.com',
+                'email': 'maria@viventi.com',
                 'first_name': 'María',
                 'last_name': 'Rodríguez',
                 'phone': '+58 412 555 0123',
@@ -654,7 +654,7 @@ class Command(BaseCommand):
                 'avatar_url': self.AGENT_PHOTOS[1],  # Business woman
             },
             {
-                'email': 'pedro@viventave.com',
+                'email': 'pedro@viventi.com',
                 'first_name': 'Pedro',
                 'last_name': 'González',
                 'phone': '+58 416 555 0300',

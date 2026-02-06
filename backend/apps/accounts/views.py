@@ -261,4 +261,4 @@ def health_check(request):
     """
     Health check endpoint for monitoring.
     """
-    return Response({"status": "healthy", "service": "vzla-realestate-api"})
+    return Response({"status": "healthy", "service": "viventi-api"})

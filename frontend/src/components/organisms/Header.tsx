@@ -50,7 +50,7 @@ export function Header({ locale, translations }: HeaderProps) {
               <span className="text-white font-display font-bold text-xl">V</span>
             </div>
             <span className="font-display font-semibold text-xl text-secondary-900 hidden sm:block">
-              Viventa
+              Viventi
             </span>
           </Link>
 
