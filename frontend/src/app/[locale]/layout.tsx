@@ -1,18 +1,6 @@
-import { Inter, Playfair_Display } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { Header, Footer } from '@/components/organisms';
-import '@/styles/globals.css';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-});
 
 export async function generateMetadata({
   params: { locale },
@@ -65,14 +53,10 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <Header locale={locale} translations={headerTranslations} />
-          <main className="flex-1">{children}</main>
-          <Footer locale={locale} translations={footerTranslations} />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Header locale={locale} translations={headerTranslations} />
+      <main className="flex-1">{children}</main>
+      <Footer locale={locale} translations={footerTranslations} />
+    </NextIntlClientProvider>
   );
 }
