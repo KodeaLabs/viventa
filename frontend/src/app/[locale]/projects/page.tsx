@@ -52,9 +52,10 @@ export default async function ProjectsPage({
     deliveryDate: t('deliveryDate'),
     progress: t('progress'),
     viewDetails: t('viewDetails'),
-    presale: t('presale'),
-    underConstruction: t('underConstruction'),
-    delivered: t('delivered'),
+    presale: t('status.presale'),
+    underConstruction: t('status.under_construction'),
+    delivered: t('status.delivered'),
+    featured: t('featured'),
     noProjects: t('noProjects'),
   };
 

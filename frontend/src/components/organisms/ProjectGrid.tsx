@@ -14,6 +14,7 @@ interface ProjectGridProps {
     presale: string;
     underConstruction: string;
     delivered: string;
+    featured: string;
     noProjects: string;
   };
 }

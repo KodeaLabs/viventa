@@ -16,6 +16,7 @@ interface ProjectCardProps {
     presale: string;
     underConstruction: string;
     delivered: string;
+    featured: string;
   };
 }
 
@@ -67,7 +68,7 @@ export function ProjectCard({ project, locale, translations }: ProjectCardProps)
         </span>
         {project.is_featured && (
           <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-medium bg-primary-600 text-white">
-            Featured
+            {translations.featured}
           </span>
         )}
       </div>
