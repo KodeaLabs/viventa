@@ -51,7 +51,7 @@ export default async function ProjectDetailPage({
   const statusLabel = {
     presale: locale === 'es' ? 'Pre-venta' : 'Pre-Sale',
     under_construction: locale === 'es' ? 'En Construcción' : 'Under Construction',
-    delivered: locale === 'es' ? 'Delivered' : 'Delivered',
+    delivered: locale === 'es' ? 'Entregado' : 'Delivered',
     cancelled: locale === 'es' ? 'Cancelado' : 'Cancelled',
     draft: locale === 'es' ? 'Borrador' : 'Draft',
   };
