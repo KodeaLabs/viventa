@@ -148,20 +148,22 @@ export function Footer({ locale, translations }: FooterProps) {
           <div className="bg-gradient-to-r from-primary-600/20 to-primary-700/20 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
               <h3 className="text-white font-display text-lg md:text-xl font-semibold mb-1">
-                ¿Eres agente inmobiliario?
+                {locale === 'en' ? 'Are you a real estate agent?' : '¿Eres agente inmobiliario?'}
               </h3>
               <p className="text-secondary-400 text-sm">
-                Publica tus propiedades y conecta con compradores internacionales
+                {locale === 'en'
+                  ? 'List your properties and connect with international buyers'
+                  : 'Publica tus propiedades y conecta con compradores internacionales'}
               </p>
             </div>
             <Link
-              href="/es/portal-agentes"
+              href={`/${locale}/portal-agentes`}
               className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-              Publicar Propiedad
+              {locale === 'en' ? 'List Property' : 'Publicar Propiedad'}
             </Link>
           </div>
         </div>
