@@ -1,21 +1,19 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
-import { locales, defaultLocale } from './src/i18n';
-
-const intlMiddleware = createMiddleware({
-  locales,
-  defaultLocale,
-  localeDetection: true,
-  localePrefix: 'always',
-});
 
 const protectedPatterns = ['/agent/', '/my/', '/admin/'];
 
 function isProtectedPath(pathname: string): boolean {
-  // Strip the locale prefix to check the actual path
   const pathWithoutLocale = pathname.replace(/^\/(en|es)/, '');
   return protectedPatterns.some((pattern) => pathWithoutLocale.startsWith(pattern));
 }
+
+const handleI18nRouting = createMiddleware({
+  locales: ['en', 'es'],
+  defaultLocale: 'es',
+  localeDetection: true,
+  localePrefix: 'always',
+});
 
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -30,9 +28,9 @@ export default function middleware(request: NextRequest) {
     }
   }
 
-  return intlMiddleware(request);
+  return handleI18nRouting(request);
 }
 
 export const config = {
-  matcher: ['/(en|es)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
+  matcher: ['/', '/(en|es)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
 };
