@@ -1,5 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import {
+  MapPinIcon,
+  HomeIcon,
+  ArrowsPointingOutIcon,
+} from '@heroicons/react/24/outline';
 import { api, formatPrice } from '../../../../lib/api';
 import type { AgentProfile, AgentListItem, Property, AgentType } from '@/types';
 
@@ -33,29 +38,21 @@ function PropertyCard({ property, locale }: { property: Property; locale: string
           {property.title}
         </h3>
         <p className="text-sm text-secondary-500 mb-2 flex items-center gap-1">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          </svg>
+          <MapPinIcon className="w-4 h-4" />
           {property.location_display}
         </p>
         <div className="flex items-center gap-4 text-sm text-secondary-600">
           <span className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
+            <HomeIcon className="w-4 h-4" />
             {property.bedrooms} {locale === 'en' ? 'bd' : 'hab'}
           </span>
           <span className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
+            <HomeIcon className="w-4 h-4" />
             {Math.floor(property.bathrooms)} {locale === 'en' ? 'ba' : 'ba'}
           </span>
           {property.area_sqm && (
             <span className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-              </svg>
+              <ArrowsPointingOutIcon className="w-4 h-4" />
               {property.area_sqm} m²
             </span>
           )}
@@ -229,6 +226,15 @@ export default async function AgentProfilePage({
       </div>
 
       <div className="container-custom py-8 md:py-12">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center text-sm text-secondary-500 mb-6">
+          <a href={`/${locale}/agents`} className="hover:text-primary-600 transition-colors">
+            {locale === 'en' ? 'Agents' : 'Agentes'}
+          </a>
+          <span className="mx-2">/</span>
+          <span className="text-secondary-900 truncate max-w-xs">{agent.display_name}</span>
+        </nav>
+
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">

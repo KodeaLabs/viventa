@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server';
 import {
   ShieldCheckIcon,
   UserGroupIcon,
@@ -109,9 +108,12 @@ export default async function AboutPage({
             {isSpanish ? 'Cómo Funciona' : 'How It Works'}
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connecting line between steps (visible on md+) */}
+            <div className="hidden md:block absolute top-6 left-[calc(16.67%+24px)] right-[calc(16.67%+24px)] h-0.5 bg-primary-200" />
+
             <div className="text-center">
-              <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl">
+              <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl relative z-10">
                 1
               </div>
               <h3 className="font-display text-xl font-semibold text-secondary-900 mb-3">
@@ -125,7 +127,7 @@ export default async function AboutPage({
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl">
+              <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl relative z-10">
                 2
               </div>
               <h3 className="font-display text-xl font-semibold text-secondary-900 mb-3">
@@ -139,7 +141,7 @@ export default async function AboutPage({
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl">
+              <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl relative z-10">
                 3
               </div>
               <h3 className="font-display text-xl font-semibold text-secondary-900 mb-3">

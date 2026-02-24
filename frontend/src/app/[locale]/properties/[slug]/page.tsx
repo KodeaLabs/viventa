@@ -80,6 +80,15 @@ export default async function PropertyDetailPage({
       </div>
 
       <div className="container-custom py-8 md:py-12">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center text-sm text-secondary-500 mb-6">
+          <a href={`/${locale}/properties`} className="hover:text-primary-600 transition-colors">
+            {locale === 'en' ? 'Properties' : 'Propiedades'}
+          </a>
+          <span className="mx-2">/</span>
+          <span className="text-secondary-900 truncate max-w-xs">{property.title}</span>
+        </nav>
+
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">

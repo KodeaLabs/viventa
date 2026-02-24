@@ -7,7 +7,7 @@ import {
   PhoneIcon,
   ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline';
-import { Button, Input } from '@/components/atoms';
+import { Button, Input, Textarea } from '@/components/atoms';
 
 interface ContactPageProps {
   params: { locale: string };
@@ -69,7 +69,9 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
                     {isSpanish ? 'Ubicación' : 'Location'}
                   </h3>
                   <p className="text-secondary-600">
-                    Isla de Margarita, Nueva Esparta, Venezuela
+                    {isSpanish
+                      ? 'Isla de Margarita, Nueva Esparta, Venezuela'
+                      : 'Margarita Island, Nueva Esparta, Venezuela'}
                   </p>
                 </div>
               </div>
@@ -206,21 +208,16 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
                   required
                 />
 
-                <div>
-                  <label className="label">
-                    {isSpanish ? 'Mensaje' : 'Message'}
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={5}
-                    className="input"
-                    value={formState.message}
-                    onChange={(e) =>
-                      setFormState({ ...formState, message: e.target.value })
-                    }
-                    required
-                  />
-                </div>
+                <Textarea
+                  label={isSpanish ? 'Mensaje' : 'Message'}
+                  name="message"
+                  rows={5}
+                  value={formState.message}
+                  onChange={(e) =>
+                    setFormState({ ...formState, message: e.target.value })
+                  }
+                  required
+                />
 
                 <Button
                   type="submit"

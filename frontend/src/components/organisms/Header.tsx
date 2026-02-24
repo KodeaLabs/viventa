@@ -99,8 +99,13 @@ export function Header({ locale, translations }: HeaderProps) {
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-secondary-100">
+        <div
+          className={cn(
+            'md:hidden overflow-hidden transition-all duration-300 ease-in-out',
+            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          )}
+        >
+          <div className="py-4 border-t border-secondary-100">
             <div className="flex flex-col space-y-4">
               {navigation.map((item) => (
                 <Link
@@ -128,7 +133,7 @@ export function Header({ locale, translations }: HeaderProps) {
               </Link>
             </div>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );

@@ -123,7 +123,20 @@ export default async function PropertiesPage({
 
         {/* Pagination */}
         {meta && meta.total_pages > 1 && (
-          <div className="mt-12 flex justify-center gap-2">
+          <div className="mt-12 flex justify-center items-center gap-2">
+            {/* Previous */}
+            {meta.page > 1 && (
+              <a
+                href={`/${locale}/properties?${new URLSearchParams({
+                  ...searchParams,
+                  page: String(meta.page - 1),
+                }).toString()}`}
+                className="px-4 py-2 rounded-lg border border-secondary-200 bg-white text-secondary-600 hover:bg-secondary-50 hover:border-secondary-300 transition-colors"
+              >
+                {locale === 'en' ? 'Previous' : 'Anterior'}
+              </a>
+            )}
+
             {Array.from({ length: meta.total_pages }, (_, i) => i + 1).map((page) => (
               <a
                 key={page}
@@ -131,15 +144,28 @@ export default async function PropertiesPage({
                   ...searchParams,
                   page: String(page),
                 }).toString()}`}
-                className={`px-4 py-2 rounded-lg ${
+                className={`px-4 py-2 rounded-lg border transition-colors ${
                   page === meta.page
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white text-secondary-600 hover:bg-secondary-100'
+                    ? 'bg-primary-600 text-white border-primary-600'
+                    : 'bg-white text-secondary-600 border-secondary-200 hover:bg-secondary-50 hover:border-secondary-300'
                 }`}
               >
                 {page}
               </a>
             ))}
+
+            {/* Next */}
+            {meta.page < meta.total_pages && (
+              <a
+                href={`/${locale}/properties?${new URLSearchParams({
+                  ...searchParams,
+                  page: String(meta.page + 1),
+                }).toString()}`}
+                className="px-4 py-2 rounded-lg border border-secondary-200 bg-white text-secondary-600 hover:bg-secondary-50 hover:border-secondary-300 transition-colors"
+              >
+                {locale === 'en' ? 'Next' : 'Siguiente'}
+              </a>
+            )}
           </div>
         )}
       </div>
