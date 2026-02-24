@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button, Badge, Spinner } from '@/components/atoms';
 import { formatPrice } from '../../../../lib/api';
+import { useAuthenticatedApi } from '@/hooks';
 
 interface Property {
   id: string;
@@ -37,27 +38,21 @@ export default function AgentPropertiesPage({
   const [properties, setProperties] = useState<Property[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { api, isAuthLoading, accessToken } = useAuthenticatedApi();
 
   useEffect(() => {
-    // Fetch agent's properties
+    if (isAuthLoading) return;
+
+    if (!accessToken) {
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
     const fetchProperties = async () => {
       try {
-        const response = await fetch('/api/v1/agent/properties/', {
-          credentials: 'include',
-        });
-
-        if (response.status === 401) {
-          window.location.href = '/api/auth/login';
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch properties');
-        }
-
-        const data = await response.json();
-        setProperties(data.data || []);
-      } catch (err) {
+        const data = await api.getAgentProperties();
+        setProperties((data.data || []) as unknown as Property[]);
+      } catch {
         setError(
           isSpanish
             ? 'Error al cargar propiedades'
@@ -69,7 +64,7 @@ export default function AgentPropertiesPage({
     };
 
     fetchProperties();
-  }, [isSpanish]);
+  }, [isSpanish, isAuthLoading, accessToken, api]);
 
   const handleDelete = async (id: string) => {
     const confirmed = window.confirm(
@@ -81,14 +76,8 @@ export default function AgentPropertiesPage({
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`/api/v1/agent/properties/${id}/`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        setProperties(properties.filter((p) => p.id !== id));
-      }
+      await api.deleteProperty(id);
+      setProperties(properties.filter((p) => p.id !== id));
     } catch (err) {
       console.error('Failed to delete property:', err);
     }
@@ -107,6 +96,14 @@ export default function AgentPropertiesPage({
     pending: isSpanish ? 'Pendiente' : 'Pending',
     sold: isSpanish ? 'Vendido' : 'Sold',
   };
+
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-secondary-50">

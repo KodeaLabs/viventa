@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { PaymentTable } from '@/components/organisms/PaymentTable';
 import { formatPrice, formatArea } from '../../../../../lib/api';
+import { useAuthenticatedApi } from '@/hooks';
 import type { BuyerContractDetail } from '@/types';
 
 const statusColors: Record<string, string> = {
@@ -32,30 +33,30 @@ export default function ContractDetailPage() {
   const [contract, setContract] = useState<BuyerContractDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { api, isAuthLoading, accessToken } = useAuthenticatedApi();
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!accessToken) {
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
     const fetchContract = async () => {
       try {
-        const response = await fetch(`/api/v1/my/contracts/${id}/`, {
-          credentials: 'include',
-        });
-        if (response.status === 401) {
-          window.location.href = '/api/auth/login';
-          return;
-        }
-        if (!response.ok) throw new Error('Failed to load contract');
-        const data = await response.json();
+        const data = await api.getMyContract(id);
         setContract(data.data);
-      } catch (err) {
+      } catch {
         setError(locale === 'es' ? 'Error al cargar el contrato' : 'Failed to load contract');
       } finally {
         setIsLoading(false);
       }
     };
     fetchContract();
-  }, [id, locale]);
+  }, [id, locale, isAuthLoading, accessToken, api]);
 
-  if (isLoading) {
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600" />

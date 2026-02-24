@@ -1,4 +1,5 @@
 import { Inter, Playfair_Display } from 'next/font/google';
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import '@/styles/globals.css';
 
 const inter = Inter({
@@ -18,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   );
 }

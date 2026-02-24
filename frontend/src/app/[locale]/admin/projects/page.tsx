@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { formatPrice } from '../../../../lib/api';
+import { useAuthenticatedApi } from '@/hooks';
 import type { ProjectListItem } from '@/types';
 
 const statusColors: Record<string, string> = {
@@ -30,34 +31,34 @@ export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<ProjectListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { api, isAuthLoading, accessToken } = useAuthenticatedApi();
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!accessToken) {
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
     const fetchProjects = async () => {
       try {
-        const response = await fetch('/api/v1/admin/projects/', {
-          credentials: 'include',
-        });
-        if (response.status === 401) {
-          window.location.href = '/api/auth/login';
-          return;
-        }
-        if (response.status === 403) {
-          setError(locale === 'es' ? 'No tienes permisos de administrador de proyectos.' : 'You don\'t have project admin permissions.');
-          setIsLoading(false);
-          return;
-        }
-        const data = await response.json();
+        const data = await api.getAdminProjects();
         setProjects(data.data || []);
-      } catch (err) {
-        setError(locale === 'es' ? 'Error al cargar proyectos' : 'Failed to load projects');
+      } catch (err: any) {
+        if (err?.message?.includes('403')) {
+          setError(locale === 'es' ? 'No tienes permisos de administrador de proyectos.' : 'You don\'t have project admin permissions.');
+        } else {
+          setError(locale === 'es' ? 'Error al cargar proyectos' : 'Failed to load projects');
+        }
       } finally {
         setIsLoading(false);
       }
     };
     fetchProjects();
-  }, [locale]);
+  }, [locale, isAuthLoading, accessToken, api]);
 
-  if (isLoading) {
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600" />

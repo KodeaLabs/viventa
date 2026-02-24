@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { PropertyForm } from '@/components/organisms';
 import { Spinner } from '@/components/atoms';
+import { useAuthenticatedApi } from '@/hooks';
 import type { Property } from '@/types';
 
 interface EditPropertyPageProps {
@@ -18,46 +19,39 @@ export default function EditPropertyPage({ params: { locale, id } }: EditPropert
   const [property, setProperty] = useState<Property | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { api, isAuthLoading, accessToken } = useAuthenticatedApi();
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!accessToken) {
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
     const fetchProperty = async () => {
       try {
-        const response = await fetch(`/api/v1/agent/properties/${id}/`, {
-          credentials: 'include',
-        });
-
-        if (response.status === 401) {
-          window.location.href = '/api/auth/login';
-          return;
-        }
-
-        if (response.status === 404) {
+        const data = await api.getProperty(id);
+        setProperty(data.data || data as unknown as Property);
+      } catch (err: any) {
+        if (err?.message?.includes('404')) {
           setError(isSpanish ? 'Propiedad no encontrada' : 'Property not found');
-          return;
+        } else {
+          setError(
+            isSpanish
+              ? 'Error al cargar la propiedad'
+              : 'Failed to load property'
+          );
         }
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch property');
-        }
-
-        const data = await response.json();
-        setProperty(data.data || data);
-      } catch (err) {
-        console.error('Failed to fetch property:', err);
-        setError(
-          isSpanish
-            ? 'Error al cargar la propiedad'
-            : 'Failed to load property'
-        );
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchProperty();
-  }, [id, isSpanish]);
+  }, [id, isSpanish, isAuthLoading, accessToken, api]);
 
-  if (isLoading) {
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <Spinner size="lg" />

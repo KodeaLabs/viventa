@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { formatPrice } from '../../../../lib/api';
+import { useAuthenticatedApi } from '@/hooks';
 import type { BuyerContractListItem } from '@/types';
 
 const statusColors: Record<string, string> = {
@@ -30,29 +31,30 @@ export default function BuyerContractsPage() {
   const [contracts, setContracts] = useState<BuyerContractListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { api, isAuthLoading, accessToken } = useAuthenticatedApi();
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!accessToken) {
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
     const fetchContracts = async () => {
       try {
-        const response = await fetch('/api/v1/my/contracts/', {
-          credentials: 'include',
-        });
-        if (response.status === 401) {
-          window.location.href = '/api/auth/login';
-          return;
-        }
-        const data = await response.json();
+        const data = await api.getMyContracts();
         setContracts(data.data || []);
-      } catch (err) {
+      } catch {
         setError(locale === 'es' ? 'Error al cargar contratos' : 'Failed to load contracts');
       } finally {
         setIsLoading(false);
       }
     };
     fetchContracts();
-  }, [locale]);
+  }, [locale, isAuthLoading, accessToken, api]);
 
-  if (isLoading) {
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600" />

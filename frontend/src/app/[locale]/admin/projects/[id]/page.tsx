@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { AssetGrid } from '@/components/organisms/AssetGrid';
 import { MilestoneTimeline } from '@/components/organisms/MilestoneTimeline';
 import { formatPrice } from '../../../../../lib/api';
+import { useAuthenticatedApi } from '@/hooks';
 import type { ProjectDetail, SellableAsset, BuyerContractListItem } from '@/types';
 
 const statusColors: Record<string, string> = {
@@ -30,39 +31,30 @@ export default function AdminProjectDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [transitionLoading, setTransitionLoading] = useState(false);
+  const { api, isAuthLoading, accessToken } = useAuthenticatedApi();
 
   const fetchData = async () => {
     try {
-      // Fetch project detail
-      const projectRes = await fetch(`/api/v1/admin/projects/${id}/`, {
-        credentials: 'include',
+      // Fetch project detail using the API URL with token
+      const projectRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/projects/${id}/`, {
+        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
       });
-      if (projectRes.status === 401) {
-        window.location.href = '/api/auth/login';
-        return;
-      }
       if (!projectRes.ok) throw new Error('Failed to load project');
-      const projectData = await projectRes.json();
-      setProject(projectData.data || projectData);
+      const projData = await projectRes.json();
+      setProject(projData.data || projData);
 
       // Fetch assets
-      const assetsRes = await fetch(`/api/v1/admin/projects/${id}/assets/`, {
-        credentials: 'include',
-      });
-      if (assetsRes.ok) {
-        const assetsData = await assetsRes.json();
+      try {
+        const assetsData = await api.getAdminAssets(id);
         setAssets(assetsData.data || []);
-      }
+      } catch {}
 
       // Fetch contracts
-      const contractsRes = await fetch(`/api/v1/admin/projects/${id}/contracts/`, {
-        credentials: 'include',
-      });
-      if (contractsRes.ok) {
-        const contractsData = await contractsRes.json();
+      try {
+        const contractsData = await api.getAdminContracts(id);
         setContracts(contractsData.data || []);
-      }
-    } catch (err) {
+      } catch {}
+    } catch {
       setError(locale === 'es' ? 'Error al cargar el proyecto' : 'Failed to load project');
     } finally {
       setIsLoading(false);
@@ -70,31 +62,29 @@ export default function AdminProjectDetailPage() {
   };
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
+    if (!accessToken) {
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
     fetchData();
-  }, [id]);
+  }, [id, isAuthLoading, accessToken]);
 
   const handleTransition = async (action: string) => {
     setTransitionLoading(true);
     try {
-      const response = await fetch(`/api/v1/admin/projects/${id}/${action}/`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (response.ok) {
-        await fetchData();
-      } else {
-        const data = await response.json();
-        alert(data.error?.message || 'Transition failed');
-      }
-    } catch (err) {
-      alert('Failed to perform transition');
+      await api.transitionProjectStatus(id, action);
+      await fetchData();
+    } catch (err: any) {
+      alert(err?.message || 'Transition failed');
     } finally {
       setTransitionLoading(false);
     }
   };
 
-  if (isLoading) {
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600" />

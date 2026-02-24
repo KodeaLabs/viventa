@@ -33,6 +33,11 @@ export default async function LocaleLayout({
     agents: t('agents'),
     about: t('about'),
     contact: t('contact'),
+    signIn: t('signIn'),
+    signOut: t('signOut'),
+    dashboard: t('dashboard'),
+    myListings: t('myListings'),
+    myContracts: t('myContracts'),
   };
 
   const currentYear = new Date().getFullYear();
