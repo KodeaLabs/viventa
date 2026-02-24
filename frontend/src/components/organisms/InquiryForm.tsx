@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { CheckIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/atoms';
 import { FormField } from '@/components/molecules';
 import { api } from '../../lib/api';
@@ -94,19 +95,7 @@ export function InquiryForm({
       <div className={cn('bg-green-50 rounded-xl p-6', className)}>
         <div className="text-center">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg
-              className="w-8 h-8 text-green-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
+            <CheckIcon className="w-8 h-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-800 mb-2">
             {translations.success}

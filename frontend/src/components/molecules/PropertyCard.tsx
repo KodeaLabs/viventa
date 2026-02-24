@@ -113,19 +113,15 @@ export function PropertyCard({
               </span>
             </div>
             <div className="flex items-center text-secondary-600">
-              {/* Bath/Shower icon */}
               <svg
                 className="h-4 w-4 mr-1 flex-shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                strokeWidth={1.5}
+                aria-hidden="true"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M4 12h16M4 12a2 2 0 00-2 2v4a2 2 0 002 2h16a2 2 0 002-2v-4a2 2 0 00-2-2M4 12V8a4 4 0 014-4h1"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16M4 12a2 2 0 00-2 2v4a2 2 0 002 2h16a2 2 0 002-2v-4a2 2 0 00-2-2M4 12V8a4 4 0 014-4h1" />
               </svg>
               <span className="text-sm">
                 {Math.floor(property.bathrooms)} {translations.bathrooms}

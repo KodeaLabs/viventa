@@ -4,7 +4,10 @@ import {
   MapPinIcon,
   HomeIcon,
   ArrowsPointingOutIcon,
+  CheckBadgeIcon,
+  BuildingOffice2Icon,
 } from '@heroicons/react/24/outline';
+import { CheckBadgeIcon as CheckBadgeIconSolid } from '@heroicons/react/24/solid';
 import { api, formatPrice } from '../../../../lib/api';
 import type { AgentProfile, AgentListItem, Property, AgentType } from '@/types';
 
@@ -171,9 +174,7 @@ export default async function AgentProfilePage({
                 </h1>
                 {agent.is_verified_agent && (
                   <div className="bg-white/20 backdrop-blur-sm p-1 rounded-full">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
+                    <CheckBadgeIconSolid className="w-6 h-6 text-white" />
                   </div>
                 )}
               </div>
@@ -183,9 +184,7 @@ export default async function AgentProfilePage({
                   {getAgentTypeLabel(agent.agent_type)}
                 </span>
                 <span className="flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  </svg>
+                  <MapPinIcon className="w-4 h-4" />
                   {agent.location_display}
                 </span>
                 {agent.founded_year && (
@@ -228,9 +227,9 @@ export default async function AgentProfilePage({
       <div className="container-custom py-8 md:py-12">
         {/* Breadcrumbs */}
         <nav className="flex items-center text-sm text-secondary-500 mb-6">
-          <a href={`/${locale}/agents`} className="hover:text-primary-600 transition-colors">
+          <Link href={`/${locale}/agents`} className="hover:text-primary-600 transition-colors">
             {locale === 'en' ? 'Agents' : 'Agentes'}
-          </a>
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-secondary-900 truncate max-w-xs">{agent.display_name}</span>
         </nav>
@@ -262,9 +261,7 @@ export default async function AgentProfilePage({
               ) : (
                 <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-secondary-100">
                   <div className="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
+                    <BuildingOffice2Icon className="w-8 h-8 text-secondary-400" />
                   </div>
                   <p className="text-secondary-600">
                     {locale === 'en' ? 'No properties listed yet' : 'Aún no hay propiedades listadas'}
@@ -419,9 +416,7 @@ export default async function AgentProfilePage({
                     <div className="font-medium text-secondary-900 flex items-center gap-1">
                       {agent.parent_company_info.display_name}
                       {agent.parent_company_info.is_verified && (
-                        <svg className="w-4 h-4 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        <CheckBadgeIconSolid className="w-4 h-4 text-primary-500" />
                       )}
                     </div>
                     <p className="text-sm text-secondary-500">

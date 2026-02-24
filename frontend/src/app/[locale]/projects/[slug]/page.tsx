@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { AssetGrid } from '@/components/organisms/AssetGrid';
 import { MilestoneTimeline } from '@/components/organisms/MilestoneTimeline';
@@ -79,9 +80,9 @@ export default async function ProjectDetailPage({
         <div className="container-custom py-6">
           {/* Breadcrumb */}
           <nav className="text-sm text-secondary-500 mb-4">
-            <a href={`/${locale}/projects`} className="hover:text-primary-600">
+            <Link href={`/${locale}/projects`} className="hover:text-primary-600">
               {locale === 'es' ? 'Proyectos' : 'Projects'}
-            </a>
+            </Link>
             <span className="mx-2">/</span>
             <span className="text-secondary-900">{title}</span>
           </nav>

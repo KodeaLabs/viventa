@@ -2,6 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+  CheckIcon,
+  BuildingOffice2Icon,
+  UserGroupIcon,
+  ChatBubbleLeftRightIcon,
+} from '@heroicons/react/24/outline';
 import { Button, Spinner } from '@/components/atoms';
 import { api } from '../../../lib/api';
 
@@ -95,19 +101,7 @@ export default function BecomeAgentPage({
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">
           <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg
-              className="w-8 h-8 text-emerald-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
+            <CheckIcon className="w-8 h-8 text-emerald-600" />
           </div>
           <h2 className="font-display text-2xl font-bold text-secondary-900 mb-2">
             {isSpanish ? '¡Registro Exitoso!' : 'Registration Successful!'}
@@ -261,19 +255,7 @@ export default function BecomeAgentPage({
           <div className="mt-8 grid md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg
-                  className="w-6 h-6 text-primary-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
+                <BuildingOffice2Icon className="w-6 h-6 text-primary-600" />
               </div>
               <h3 className="font-semibold text-secondary-900 mb-1">
                 {isSpanish ? 'Publica Propiedades' : 'List Properties'}
@@ -286,19 +268,7 @@ export default function BecomeAgentPage({
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg
-                  className="w-6 h-6 text-primary-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+                <UserGroupIcon className="w-6 h-6 text-primary-600" />
               </div>
               <h3 className="font-semibold text-secondary-900 mb-1">
                 {isSpanish ? 'Tu Página' : 'Your Page'}
@@ -311,19 +281,7 @@ export default function BecomeAgentPage({
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg
-                  className="w-6 h-6 text-primary-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
+                <ChatBubbleLeftRightIcon className="w-6 h-6 text-primary-600" />
               </div>
               <h3 className="font-semibold text-secondary-900 mb-1">
                 {isSpanish ? 'Recibe Consultas' : 'Get Inquiries'}

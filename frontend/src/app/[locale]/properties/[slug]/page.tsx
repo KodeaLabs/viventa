@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import {
@@ -82,9 +83,9 @@ export default async function PropertyDetailPage({
       <div className="container-custom py-8 md:py-12">
         {/* Breadcrumbs */}
         <nav className="flex items-center text-sm text-secondary-500 mb-6">
-          <a href={`/${locale}/properties`} className="hover:text-primary-600 transition-colors">
+          <Link href={`/${locale}/properties`} className="hover:text-primary-600 transition-colors">
             {locale === 'en' ? 'Properties' : 'Propiedades'}
-          </a>
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-secondary-900 truncate max-w-xs">{property.title}</span>
         </nav>
