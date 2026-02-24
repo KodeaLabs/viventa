@@ -3,20 +3,20 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import {
+  GlobeAltIcon,
+  ShieldCheckIcon,
+  BoltIcon,
+  ChatBubbleLeftRightIcon,
+} from '@heroicons/react/24/outline';
 import { Button } from '@/components/atoms';
 
 type TabType = 'login' | 'register';
 
 export default function PortalAgentesPage() {
   const params = useParams();
-  const router = useRouter();
   const locale = params.locale as string;
-
-  // Redirect to Spanish version if accessed in English
-  if (locale === 'en') {
-    router.push('/es/portal-agentes');
-    return null;
-  }
+  const isSpanish = locale === 'es';
 
   const [activeTab, setActiveTab] = useState<TabType>('login');
   const [isLoading, setIsLoading] = useState(false);
@@ -46,10 +46,17 @@ export default function PortalAgentesPage() {
     try {
       // TODO: Implement actual login logic with Auth0 or backend
       console.log('Login attempt:', { email: loginEmail });
-      // For now, show a message
-      setError('El sistema de autenticación se configurará próximamente.');
+      setError(
+        isSpanish
+          ? 'El sistema de autenticación se configurará próximamente.'
+          : 'The authentication system will be configured soon.'
+      );
     } catch {
-      setError('Error al iniciar sesión. Por favor intente de nuevo.');
+      setError(
+        isSpanish
+          ? 'Error al iniciar sesión. Por favor intente de nuevo.'
+          : 'Login error. Please try again.'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +68,11 @@ export default function PortalAgentesPage() {
     setError('');
 
     if (registerData.password !== registerData.confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setError(
+        isSpanish
+          ? 'Las contraseñas no coinciden'
+          : 'Passwords do not match'
+      );
       setIsLoading(false);
       return;
     }
@@ -69,9 +80,17 @@ export default function PortalAgentesPage() {
     try {
       // TODO: Implement actual registration logic
       console.log('Register attempt:', registerData);
-      setError('El registro se habilitará próximamente. Por favor contáctenos directamente.');
+      setError(
+        isSpanish
+          ? 'El registro se habilitará próximamente. Por favor contáctenos directamente.'
+          : 'Registration will be available soon. Please contact us directly.'
+      );
     } catch {
-      setError('Error al registrarse. Por favor intente de nuevo.');
+      setError(
+        isSpanish
+          ? 'Error al registrarse. Por favor intente de nuevo.'
+          : 'Registration error. Please try again.'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -83,11 +102,12 @@ export default function PortalAgentesPage() {
       <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-16">
         <div className="container-custom text-center">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Portal de Agentes
+            {isSpanish ? 'Portal de Agentes' : 'Agent Portal'}
           </h1>
           <p className="text-xl text-primary-100 max-w-2xl mx-auto">
-            Únete a la plataforma líder de bienes raíces en Venezuela.
-            Publica tus propiedades y conecta con compradores internacionales.
+            {isSpanish
+              ? 'Únete a la plataforma líder de bienes raíces en Venezuela. Publica tus propiedades y conecta con compradores internacionales.'
+              : 'Join the leading real estate platform in Venezuela. List your properties and connect with international buyers.'}
           </p>
         </div>
       </div>
@@ -104,7 +124,7 @@ export default function PortalAgentesPage() {
                   : 'text-secondary-600 hover:bg-secondary-50'
               }`}
             >
-              Iniciar Sesión
+              {isSpanish ? 'Iniciar Sesión' : 'Sign In'}
             </button>
             <button
               onClick={() => setActiveTab('register')}
@@ -114,7 +134,7 @@ export default function PortalAgentesPage() {
                   : 'text-secondary-600 hover:bg-secondary-50'
               }`}
             >
-              Registrarse
+              {isSpanish ? 'Registrarse' : 'Register'}
             </button>
           </div>
 
@@ -130,7 +150,7 @@ export default function PortalAgentesPage() {
               <form onSubmit={handleLogin} className="space-y-6">
                 <div>
                   <label htmlFor="login-email" className="block text-sm font-medium text-secondary-700 mb-2">
-                    Correo Electrónico
+                    {isSpanish ? 'Correo Electrónico' : 'Email'}
                   </label>
                   <input
                     type="email"
@@ -138,14 +158,14 @@ export default function PortalAgentesPage() {
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="tu@email.com"
+                    placeholder={isSpanish ? 'tu@email.com' : 'you@email.com'}
                     required
                   />
                 </div>
 
                 <div>
                   <label htmlFor="login-password" className="block text-sm font-medium text-secondary-700 mb-2">
-                    Contraseña
+                    {isSpanish ? 'Contraseña' : 'Password'}
                   </label>
                   <input
                     type="password"
@@ -159,13 +179,15 @@ export default function PortalAgentesPage() {
                 </div>
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Iniciando...' : 'Iniciar Sesión'}
+                  {isLoading
+                    ? (isSpanish ? 'Iniciando...' : 'Signing in...')
+                    : (isSpanish ? 'Iniciar Sesión' : 'Sign In')}
                 </Button>
 
                 <p className="text-center text-sm text-secondary-500">
-                  ¿Olvidaste tu contraseña?{' '}
+                  {isSpanish ? '¿Olvidaste tu contraseña?' : 'Forgot your password?'}{' '}
                   <button type="button" className="text-primary-600 hover:text-primary-700 font-medium">
-                    Recuperar
+                    {isSpanish ? 'Recuperar' : 'Recover'}
                   </button>
                 </p>
               </form>
@@ -174,7 +196,7 @@ export default function PortalAgentesPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Nombre
+                      {isSpanish ? 'Nombre' : 'First Name'}
                     </label>
                     <input
                       type="text"
@@ -187,7 +209,7 @@ export default function PortalAgentesPage() {
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Apellido
+                      {isSpanish ? 'Apellido' : 'Last Name'}
                     </label>
                     <input
                       type="text"
@@ -202,7 +224,7 @@ export default function PortalAgentesPage() {
 
                 <div>
                   <label htmlFor="register-email" className="block text-sm font-medium text-secondary-700 mb-2">
-                    Correo Electrónico
+                    {isSpanish ? 'Correo Electrónico' : 'Email'}
                   </label>
                   <input
                     type="email"
@@ -210,14 +232,14 @@ export default function PortalAgentesPage() {
                     value={registerData.email}
                     onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
                     className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="tu@email.com"
+                    placeholder={isSpanish ? 'tu@email.com' : 'you@email.com'}
                     required
                   />
                 </div>
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-secondary-700 mb-2">
-                    Teléfono / WhatsApp
+                    {isSpanish ? 'Teléfono / WhatsApp' : 'Phone / WhatsApp'}
                   </label>
                   <input
                     type="tel"
@@ -232,7 +254,7 @@ export default function PortalAgentesPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Tipo de Cuenta
+                    {isSpanish ? 'Tipo de Cuenta' : 'Account Type'}
                   </label>
                   <div className="grid grid-cols-2 gap-3">
                     <button
@@ -244,8 +266,12 @@ export default function PortalAgentesPage() {
                           : 'border-secondary-300 hover:border-secondary-400'
                       }`}
                     >
-                      <div className="font-medium text-secondary-900">Agente Individual</div>
-                      <div className="text-sm text-secondary-500">Trabajo independiente</div>
+                      <div className="font-medium text-secondary-900">
+                        {isSpanish ? 'Agente Individual' : 'Individual Agent'}
+                      </div>
+                      <div className="text-sm text-secondary-500">
+                        {isSpanish ? 'Trabajo independiente' : 'Independent work'}
+                      </div>
                     </button>
                     <button
                       type="button"
@@ -256,8 +282,12 @@ export default function PortalAgentesPage() {
                           : 'border-secondary-300 hover:border-secondary-400'
                       }`}
                     >
-                      <div className="font-medium text-secondary-900">Inmobiliaria</div>
-                      <div className="text-sm text-secondary-500">Empresa de bienes raíces</div>
+                      <div className="font-medium text-secondary-900">
+                        {isSpanish ? 'Inmobiliaria' : 'Real Estate Company'}
+                      </div>
+                      <div className="text-sm text-secondary-500">
+                        {isSpanish ? 'Empresa de bienes raíces' : 'Real estate business'}
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -265,7 +295,7 @@ export default function PortalAgentesPage() {
                 {registerData.agentType === 'company' && (
                   <div>
                     <label htmlFor="companyName" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Nombre de la Empresa
+                      {isSpanish ? 'Nombre de la Empresa' : 'Company Name'}
                     </label>
                     <input
                       type="text"
@@ -280,7 +310,7 @@ export default function PortalAgentesPage() {
 
                 <div>
                   <label htmlFor="register-password" className="block text-sm font-medium text-secondary-700 mb-2">
-                    Contraseña
+                    {isSpanish ? 'Contraseña' : 'Password'}
                   </label>
                   <input
                     type="password"
@@ -288,7 +318,7 @@ export default function PortalAgentesPage() {
                     value={registerData.password}
                     onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
                     className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Mínimo 8 caracteres"
+                    placeholder={isSpanish ? 'Mínimo 8 caracteres' : 'Minimum 8 characters'}
                     minLength={8}
                     required
                   />
@@ -296,7 +326,7 @@ export default function PortalAgentesPage() {
 
                 <div>
                   <label htmlFor="confirmPassword" className="block text-sm font-medium text-secondary-700 mb-2">
-                    Confirmar Contraseña
+                    {isSpanish ? 'Confirmar Contraseña' : 'Confirm Password'}
                   </label>
                   <input
                     type="password"
@@ -310,17 +340,19 @@ export default function PortalAgentesPage() {
                 </div>
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Registrando...' : 'Crear Cuenta'}
+                  {isLoading
+                    ? (isSpanish ? 'Registrando...' : 'Registering...')
+                    : (isSpanish ? 'Crear Cuenta' : 'Create Account')}
                 </Button>
 
                 <p className="text-center text-xs text-secondary-500">
-                  Al registrarte, aceptas nuestros{' '}
-                  <Link href="/es/terms" className="text-primary-600 hover:underline">
-                    Términos de Servicio
+                  {isSpanish ? 'Al registrarte, aceptas nuestros' : 'By registering, you agree to our'}{' '}
+                  <Link href={`/${locale}/terms`} className="text-primary-600 hover:underline">
+                    {isSpanish ? 'Términos de Servicio' : 'Terms of Service'}
                   </Link>{' '}
-                  y{' '}
-                  <Link href="/es/privacy" className="text-primary-600 hover:underline">
-                    Política de Privacidad
+                  {isSpanish ? 'y' : 'and'}{' '}
+                  <Link href={`/${locale}/privacy`} className="text-primary-600 hover:underline">
+                    {isSpanish ? 'Política de Privacidad' : 'Privacy Policy'}
                   </Link>
                 </p>
               </form>
@@ -331,46 +363,58 @@ export default function PortalAgentesPage() {
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-secondary-200 text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <GlobeAltIcon className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-secondary-900 mb-2">Alcance Internacional</h3>
-              <p className="text-sm text-secondary-600">Conecta con compradores de todo el mundo</p>
+              <h3 className="font-semibold text-secondary-900 mb-2">
+                {isSpanish ? 'Alcance Internacional' : 'International Reach'}
+              </h3>
+              <p className="text-sm text-secondary-600">
+                {isSpanish
+                  ? 'Conecta con compradores de todo el mundo'
+                  : 'Connect with buyers from around the world'}
+              </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-secondary-200 text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+                <ShieldCheckIcon className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-secondary-900 mb-2">Plataforma Segura</h3>
-              <p className="text-sm text-secondary-600">Tus datos y propiedades están protegidos</p>
+              <h3 className="font-semibold text-secondary-900 mb-2">
+                {isSpanish ? 'Plataforma Segura' : 'Secure Platform'}
+              </h3>
+              <p className="text-sm text-secondary-600">
+                {isSpanish
+                  ? 'Tus datos y propiedades están protegidos'
+                  : 'Your data and properties are protected'}
+              </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-secondary-200 text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+                <BoltIcon className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-secondary-900 mb-2">Fácil de Usar</h3>
-              <p className="text-sm text-secondary-600">Publica propiedades en minutos</p>
+              <h3 className="font-semibold text-secondary-900 mb-2">
+                {isSpanish ? 'Fácil de Usar' : 'Easy to Use'}
+              </h3>
+              <p className="text-sm text-secondary-600">
+                {isSpanish
+                  ? 'Publica propiedades en minutos'
+                  : 'List properties in minutes'}
+              </p>
             </div>
           </div>
 
           {/* Contact Alternative */}
           <div className="mt-8 text-center">
             <p className="text-secondary-600 mb-3">
-              ¿Prefieres contactarnos directamente?
+              {isSpanish
+                ? '¿Prefieres contactarnos directamente?'
+                : 'Prefer to contact us directly?'}
             </p>
             <Link
-              href="/es/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              Contáctanos por WhatsApp
+              <ChatBubbleLeftRightIcon className="w-5 h-5" />
+              {isSpanish ? 'Contáctanos por WhatsApp' : 'Contact us via WhatsApp'}
             </Link>
           </div>
         </div>
